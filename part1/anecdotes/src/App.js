@@ -1,5 +1,15 @@
 import { useState } from 'react'
 
+const TopAnecdote = ({anecdote, numVotes}) => {
+  return (
+    <div>
+      <h2>Anecdote with the most votes</h2>
+      {anecdote}
+      <Votes numVotes={numVotes}/>
+    </div>
+  )
+}
+
 const Votes = ({numVotes}) => {
   return (
     <div>
@@ -42,12 +52,15 @@ const App = () => {
 
   return (
     <div>
-      {anecdotes[selected]}
+      <h2>Anecdote of the day</h2>
+      
       <div>
+        {anecdotes[selected]}
         <button onClick={handleVote}>vote</button>
         <button onClick={handleRandomQuote}>next anecdote</button>
         <Votes numVotes={points[selected]}/>
       </div>
+      <TopAnecdote numVotes={Math.max(...points)} anecdote={anecdotes[points.indexOf(Math.max(...points))]}/>
     </div>
   )
 }
