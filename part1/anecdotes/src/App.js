@@ -55,10 +55,12 @@ const App = () => {
       <h2>Anecdote of the day</h2>
       
       <div>
-        {anecdotes[selected]}
+        <div>
+          {anecdotes[selected]}
+        </div>
+        <Votes numVotes={points[selected]}/>
         <button onClick={handleVote}>vote</button>
         <button onClick={handleRandomQuote}>next anecdote</button>
-        <Votes numVotes={points[selected]}/>
       </div>
       <TopAnecdote numVotes={Math.max(...points)} anecdote={anecdotes[points.indexOf(Math.max(...points))]}/>
     </div>
