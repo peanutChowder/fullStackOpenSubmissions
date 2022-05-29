@@ -1,10 +1,7 @@
 import { useState } from 'react'
-
-const Names = ({displayedPeople}) => (
-  displayedPeople.map(person => 
-    <div key={person.name}>{person.name} {person.number}</div>
-  )
-)
+import Book from './components/Book'
+import PersonForm from './components/PersonForm'
+import Filter from './components/Filter'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -18,58 +15,18 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState('')
 
   const displayedPersons = searchTerm === ""
-      ? persons
-      : persons.filter(person => person.name.toLowerCase().includes(searchTerm.toLowerCase()))
+    ? persons
+    : persons.filter(person => person.name.toLowerCase().includes(searchTerm.toLowerCase()))
 
-  const addPerson = (event) => {
-    event.preventDefault()
-    
-    if (persons.some(person => person.name === newName)) {
-      alert(`${newName} is already added to phonebook`)
-    } else {
-      const nameObject = {
-        name: newName,
-        number: newNumber
-      }
-
-      setPersons(persons.concat(nameObject))
-    }
-    setNewName("")
-    setNewNumber("")
-  }
-
-  const handleNameChange = (event) => {
-    console.log(event.target.value)
-    setNewName(event.target.value)
-  }
-
-  const handleNumberChange = (event) => {
-    setNewNumber(event.target.value)
-  }
-
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value)
-  }
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        filter shown with <input value={searchTerm} onChange={handleSearchChange}></input>
-      </div>
-
+      <Filter setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
       <h2>add a new</h2>
-      <form onSubmit={addPerson}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange}/>
-        </div>
-        <div>number: <input value={newNumber} onChange={handleNumberChange}/></div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <PersonForm persons={persons} setPersons={setPersons} newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber}/>
       <h2>Numbers</h2>
-      <Names displayedPeople={displayedPersons}/>
+      <Book displayedPeople={displayedPersons}/>
     </div>
   )
 }
