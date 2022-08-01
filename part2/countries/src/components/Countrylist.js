@@ -12,7 +12,7 @@ const Countrylist = ({displayedCountries}) => {
     }
     else if (displayedCountries.length > 1) {
         return (displayedCountries.map(country =>
-            <Countryentry country={country}/>
+            <Countryentry country={country} key={country.name["official"]}/>
             )
         )
     } else {
