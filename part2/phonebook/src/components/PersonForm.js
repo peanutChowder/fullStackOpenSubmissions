@@ -1,4 +1,3 @@
-import axios from "axios"
 
 const PersonForm = ({
         persons,
@@ -6,7 +5,8 @@ const PersonForm = ({
         newName, 
         setNewName, 
         newNumber, 
-        setNewNumber
+        setNewNumber,
+        addPersonToServer
         }) => {
     const addPerson = (event) => {
         event.preventDefault()
@@ -20,8 +20,7 @@ const PersonForm = ({
           }
     
           setPersons(persons.concat(nameObject))
-          axios
-            .post("http://localhost:3001/persons", nameObject)
+          addPersonToServer(nameObject)
             .then(response => {
               console.log(response)
             })
