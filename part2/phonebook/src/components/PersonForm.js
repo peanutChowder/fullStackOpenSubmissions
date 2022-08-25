@@ -1,3 +1,5 @@
+import axios from "axios"
+
 const PersonForm = ({
         persons,
         setPersons,
@@ -18,6 +20,11 @@ const PersonForm = ({
           }
     
           setPersons(persons.concat(nameObject))
+          axios
+            .post("http://localhost:3001/persons", nameObject)
+            .then(response => {
+              console.log(response)
+            })
         }
         setNewName("")
         setNewNumber("")
