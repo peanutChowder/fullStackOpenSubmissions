@@ -25,7 +25,6 @@ const App = () => {
   }, [])
 
 
-
   return (
     <div>
       <h2>Phonebook</h2>
@@ -39,7 +38,7 @@ const App = () => {
         setNewNumber={setNewNumber}
         addPersonToServer={personService.create}/>
       <h2>Numbers</h2>
-      <Book displayedPeople={displayedPersons}/>
+      <Book displayedPeople={displayedPersons} persons={persons} setPersons={setPersons}/>
     </div>
   )
 }

@@ -19,10 +19,11 @@ const PersonForm = ({
             number: newNumber
           }
     
-          setPersons(persons.concat(nameObject))
+          
           addPersonToServer(nameObject)
             .then(response => {
               console.log(response)
+              setPersons(persons.concat(response))
             })
         }
         setNewName("")
