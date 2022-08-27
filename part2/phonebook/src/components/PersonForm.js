@@ -6,13 +6,35 @@ const PersonForm = ({
         setNewName, 
         newNumber, 
         setNewNumber,
-        addPersonToServer
+        addPersonToServer,
+        updatePerson
         }) => {
     const addPerson = (event) => {
         event.preventDefault()
         
         if (persons.some(person => person.name === newName)) {
-          alert(`${newName} is already added to phonebook`)
+          const replace = window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)
+          if (!replace) {
+            return
+          } else {
+            const personEntry = persons.find(entry => entry.name === newName)
+            const updatedPersonEntry = {
+              ...personEntry,
+              number: newNumber
+            }
+
+            updatePerson(updatedPersonEntry.id, updatedPersonEntry)
+              .then(response => {
+                console.log(response)
+                setPersons(persons.map(person => {
+                  if (person.name === newName) {
+                    return updatedPersonEntry
+                  } else {
+                    return person
+                  }
+                }))
+              })
+          }
         } else {
           const nameObject = {
             name: newName,

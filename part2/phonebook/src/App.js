@@ -36,7 +36,8 @@ const App = () => {
         setNewName={setNewName} 
         newNumber={newNumber} 
         setNewNumber={setNewNumber}
-        addPersonToServer={personService.create}/>
+        addPersonToServer={personService.create}
+        updatePerson={personService.update}/>
       <h2>Numbers</h2>
       <Book displayedPeople={displayedPersons} persons={persons} setPersons={setPersons}/>
     </div>
