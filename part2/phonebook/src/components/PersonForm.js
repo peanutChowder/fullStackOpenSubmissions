@@ -7,7 +7,8 @@ const PersonForm = ({
         newNumber, 
         setNewNumber,
         addPersonToServer,
-        updatePerson
+        updatePerson,
+        setDisplayMsg
         }) => {
     const addPerson = (event) => {
         event.preventDefault()
@@ -46,6 +47,7 @@ const PersonForm = ({
             .then(response => {
               console.log(response)
               setPersons(persons.concat(response))
+              setDisplayMsg(`Added ${response.name}`)
             })
         }
         setNewName("")
