@@ -13,6 +13,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
   const [displayMsg, setDisplayMsg] = useState('')
+  const [displayType, setDisplayType] = useState('message')
 
   const displayedPersons = searchTerm === ""
     ? persons
@@ -31,7 +32,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={displayMsg}/>
+      <Notification message={displayMsg} displayType={displayType}/>
       <Filter setSearchTerm={setSearchTerm} searchTerm={searchTerm}/>
       <h2>add a new</h2>
       <PersonForm persons={persons} 
@@ -42,7 +43,8 @@ const App = () => {
         setNewNumber={setNewNumber}
         addPersonToServer={personService.create}
         updatePerson={personService.update}
-        setDisplayMsg={setDisplayMsg}/>
+        setDisplayMsg={setDisplayMsg}
+        setDisplayType={setDisplayType}/>
       <h2>Numbers</h2>
       <Book displayedPeople={displayedPersons} persons={persons} setPersons={setPersons}/>
     </div>

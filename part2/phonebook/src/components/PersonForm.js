@@ -8,7 +8,8 @@ const PersonForm = ({
         setNewNumber,
         addPersonToServer,
         updatePerson,
-        setDisplayMsg
+        setDisplayMsg,
+        setDisplayType
         }) => {
     const addPerson = (event) => {
         event.preventDefault()
@@ -27,13 +28,19 @@ const PersonForm = ({
             updatePerson(updatedPersonEntry.id, updatedPersonEntry)
               .then(response => {
                 console.log(response)
-                setPersons(persons.map(person => {
-                  if (person.name === newName) {
-                    return updatedPersonEntry
-                  } else {
-                    return person
-                  }
-                }))
+                setPersons(persons.map(
+                  person => {
+                    if (person.name === newName) {
+                      return updatedPersonEntry
+                    } else {
+                      return person
+                    }
+                  })
+                )
+              })
+              .catch(error => {
+                setDisplayType('error')
+                setDisplayMsg(`Information of ${newName} has already been removed from server}`)
               })
           }
         } else {
@@ -47,6 +54,7 @@ const PersonForm = ({
             .then(response => {
               console.log(response)
               setPersons(persons.concat(response))
+              setDisplayType('message')
               setDisplayMsg(`Added ${response.name}`)
             })
         }

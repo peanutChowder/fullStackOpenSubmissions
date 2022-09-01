@@ -1,7 +1,17 @@
-.displayMessage {
+.message {
     color: green;
     background-color: rgb(219, 219, 219);
     border: 1px solid green;
+    border-radius: 4px;
+    font-size: large;
+    padding-left: 10px;
+    margin: 10px 10px;
+}
+
+.error {
+    color: red;
+    background-color: rgb(219, 219, 219);
+    border: 1px solid red;
     border-radius: 4px;
     font-size: large;
     padding-left: 10px;
