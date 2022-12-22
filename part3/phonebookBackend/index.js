@@ -29,6 +29,11 @@ app.get('/api/persons', (request, response) => {
     response.json(persons)
 })
 
+app.get('/info', (request, response) => {
+    const date = new Date();
+    response.send(`Phonebook has info for ${persons.length} people<br><p>${date.toLocaleString()}</p>`)
+})
+
 app.get('/', (request, response) => {
     response.send('<h1>Hell world</h1>')
 })
