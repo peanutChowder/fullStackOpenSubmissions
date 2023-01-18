@@ -57,13 +57,25 @@ app.delete('/api/persons/:id', (request, response) => {
 
 app.post('/api/persons', (request, response) => {
     const person = request.body
+
+    if (persons.filter(p => p.name.toLowerCase() === person.name.toLowerCase()).length > 0) {
+        return response.status(400).json({
+            error: "Name already exists in phonebook"
+        })
+    }
+
+    if (person.name.trim().length === 0 || person.number.trim().length === 0) {
+        return response.status(400).json({
+            error: "Did not provide a name/number"
+        })
+    }
+
     persons = persons.concat(person)
 
     const personId = Math.floor(Math.random() * 100000);
     person.id = personId
     
-    response.json(person)
-    
+    response.json(person) 
 })
 
 app.get('/', (request, response) => {
