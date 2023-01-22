@@ -1,3 +1,4 @@
+import React from 'react';
 import personService from "../services/persons"
 
 const Book = ({displayedPeople, persons, setPersons}) => {
