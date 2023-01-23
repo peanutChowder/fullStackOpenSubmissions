@@ -64,6 +64,7 @@ app.delete('/api/persons/:id', (request, response) => {
     persons = persons.filter(person => person.id != id)
 
     response.status(204)
+    response.send(`Deleted person '${person.name}' with id '${id}'`)
 })
 
 app.post('/api/persons', (request, response) => {
