@@ -93,7 +93,7 @@ app.get('/', (request, response) => {
     response.send('<h1>Welcome to the phonebook</h1>')
 })
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
