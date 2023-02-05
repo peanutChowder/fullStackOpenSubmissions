@@ -1,8 +1,7 @@
-POST https://jf-phonebook.fly.dev/api/persons 
+POST http://localhost:3001/api/persons 
 Content-Type: application/json
 
 {
-    "id": 3,
-    "name": "aoaoaoa",
+    "name": "testing adding people ot mongodb...",
     "number": "3456"
 }
