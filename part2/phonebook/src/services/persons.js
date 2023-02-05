@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "https://jf-phonebook.fly.dev/api/persons"
+const baseUrl = process.env.PORT
 
 const getAll = () => {
     const request = axios.get(baseUrl)
