@@ -3,8 +3,8 @@ const express = require('express')
 const app = express()
 const Person = require('./models/phonebook')
 
-app.use(express.json()) 
 app.use(express.static('build'))
+app.use(express.json()) 
 
 const cors = require('cors')
 app.use(cors())
@@ -41,24 +41,30 @@ app.get('/info', (request, response) => {
     response.send(`Phonebook has info for ${persons.length} people<br><p>${date.toLocaleString()}</p>`)
 })
 
-app.get('/api/persons/:id', (request, response) => {
-    Person
-        .findById(request.params.id)
+app.get('/api/persons/:id', (request, response, next) => {
+    Person.findById(request.params.id)
         .then(person => {
-            response.json(person)
+            if (person) {
+                response.json(person)
+            } else {
+                response.status(404).end()
+            } 
         })
-        .catch(error => {
-            console.log("Failed to retrieve person by ID")
-            response.status(404).end()
-        })
+        .catch(error => next(error))
 })
 
-app.delete('/api/persons/:id', (request, response) => {
-    const id = request.params.id
-    persons = persons.filter(person => person.id != id)
+app.delete('/api/persons/:id', (request, response, next) => {
+    // const id = request.params.id
+    // persons = persons.filter(person => person.id != id)
 
-    response.status(204)
-    response.send(`Deleted person with id '${id}'`)
+    // response.status(204)
+    // response.send(`Deleted person with id '${id}'`)
+    Person.findByIdAndRemove(request.params.id)
+        .then(result => {
+            console.log(`deleted person ${request.params.id}`)
+            response.status(204).end()
+        })
+        .catch(error => next(error))
 })
 
 app.post('/api/persons', (request, response) => {
