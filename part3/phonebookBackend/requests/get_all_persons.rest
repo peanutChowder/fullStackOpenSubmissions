@@ -1,1 +1,1 @@
-GET https://jf-phonebook.fly.dev/api/persons
+GET https://localhost:3001/api/persons

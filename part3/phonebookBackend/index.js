@@ -9,31 +9,15 @@ app.use(express.json())
 const cors = require('cors')
 app.use(cors())
 
-let persons = [
-    { 
-      "id": 1,
-      "name": "Arto Hellas", 
-      "number": "040-123456"
-    },
-    { 
-      "id": 2,
-      "name": "Ada Lovelace", 
-      "number": "39-44-5323523"
-    },
-    { 
-      "id": 3,
-      "name": "Dan Abramov", 
-      "number": "12-43-234345"
-    },
-    { 
-      "id": 4,
-      "name": "Mary Poppendieck", 
-      "number": "39-23-6423122"
-    }
-]
 
+
+// TODO: what else do we add?
 app.get('/api/persons', (request, response) => {
-    response.json(persons)
+    console.log(`asdasd`)
+    Person.find()
+        .then(people => {
+            response.json(people)
+        })
 })
 
 app.get('/info', (request, response) => {
@@ -54,11 +38,6 @@ app.get('/api/persons/:id', (request, response, next) => {
 })
 
 app.delete('/api/persons/:id', (request, response, next) => {
-    // const id = request.params.id
-    // persons = persons.filter(person => person.id != id)
-
-    // response.status(204)
-    // response.send(`Deleted person with id '${id}'`)
     Person.findByIdAndRemove(request.params.id)
         .then(result => {
             console.log(`deleted person ${request.params.id}`)
@@ -85,17 +64,29 @@ app.post('/api/persons', (request, response) => {
         response.json(savedPerson)
         
     })
-    // persons = persons.concat(body)
-
-    // const personId = Math.floor(Math.random() * 100000);
-    // body.id = personId
-    
-    // response.json(body) 
 })
 
 app.get('/', (request, response) => {
     response.send('<h1>Welcome to the phonebook</h1>')
 })
+
+unknownEndpoint = (request, response) => {
+    response.status(404).send({error: "unknown endpoint"})
+}
+
+app.use(unknownEndpoint)
+
+const errorHandler = (error, request, response, next) => {
+    console.log(error.message)
+    
+    if (error.name === "CastError") {
+        return response.status(400).send({error: "malformatted id"})
+    }
+
+    next(error)
+}
+
+app.use(errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
