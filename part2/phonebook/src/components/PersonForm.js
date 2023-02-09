@@ -14,6 +14,12 @@ const PersonForm = ({
         }) => {
     const addPerson = (event) => {
         event.preventDefault()
+
+        if (newName.trim().length === 0 || newNumber.trim().length === 0) {
+          setDisplayType('error')
+          setDisplayMsg(`Cannot leave name/number blank!`)
+          return
+        }
         
         if (persons.some(person => person.name === newName)) {
           const replace = window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)
