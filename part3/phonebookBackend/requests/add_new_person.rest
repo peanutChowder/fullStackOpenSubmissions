@@ -3,5 +3,5 @@ Content-Type: application/json
 
 {
     "name": "testing adding people ot mongodb...",
-    "number": "3456"
+    "number": ""
 }

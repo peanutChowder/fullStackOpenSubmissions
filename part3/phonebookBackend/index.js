@@ -9,11 +9,7 @@ app.use(express.json())
 const cors = require('cors')
 app.use(cors())
 
-
-
-// TODO: what else do we add?
 app.get('/api/persons', (request, response) => {
-    console.log(`asdasd`)
     Person.find()
         .then(people => {
             response.json(people)
@@ -33,6 +29,21 @@ app.get('/api/persons/:id', (request, response, next) => {
             } else {
                 response.status(404).end()
             } 
+        })
+        .catch(error => next(error))
+})
+
+app.put('/api/persons/:id', (request, response, next) => {
+    const person = {
+        name: request.body.name,
+        number: request.body.number,
+        id: request.body.id
+    }
+    
+    Person.findByIdAndUpdate(request.params.id, person, {new: true})
+        .then(updatedPerson => {
+            console.log(`Updated person ${person.name}`)
+            response.json(updatedPerson)
         })
         .catch(error => next(error))
 })
@@ -70,6 +81,8 @@ app.get('/', (request, response) => {
     response.send('<h1>Welcome to the phonebook</h1>')
 })
 
+
+// Middleware for error handling
 unknownEndpoint = (request, response) => {
     response.status(404).send({error: "unknown endpoint"})
 }
