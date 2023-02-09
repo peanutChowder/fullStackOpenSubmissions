@@ -18,7 +18,12 @@ app.get('/api/persons', (request, response) => {
 
 app.get('/info', (request, response) => {
     const date = new Date();
-    response.send(`Phonebook has info for ${persons.length} people<br><p>${date.toLocaleString()}</p>`)
+
+    Person.countDocuments()
+        .then(count => {
+            response.send(`Phonebook has info for ${count} people<br><p>${date.toLocaleString()}</p>`)
+        })
+    
 })
 
 app.get('/api/persons/:id', (request, response, next) => {
