@@ -64,6 +64,10 @@ const PersonForm = ({
               setDisplayType('message')
               setDisplayMsg(`Added ${response.name}`)
             })
+            .catch(error => {
+              setDisplayType('error')
+              setDisplayMsg(error.response.data.error)
+            })
         }
         setNewName("")
         setNewNumber("")

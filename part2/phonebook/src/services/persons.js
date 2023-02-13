@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "https://jf-phonebook.fly.dev/api/persons"
+const baseUrl = "http://localhost:3001/api/persons" // TODO: note that this is only for local testing, not flyctl.
 
 const getAll = () => {
     const request = axios.get(baseUrl)
