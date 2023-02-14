@@ -20,11 +20,20 @@ const personSchema = new mongoose.Schema({
         minLength: 3,
         required: true
     },
-    number: String
+    number: {
+        type: String,
+        minLength: 8,
+        validate: {
+            validator: v => {
+                return /\d{2,3}-\d/.test(v)
+            },
+            message: props => `${props.value} is an invalid phone number!`
+        }
+    }
 })
 
 personSchema.set('toJSON', {
-    transform: (ducoment, returnedObject) => {
+    transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id.toString()
         delete returnedObject._id
         delete returnedObject.__v

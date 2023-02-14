@@ -45,8 +45,11 @@ app.put('/api/persons/:id', (request, response, next) => {
         id: request.body.id
     }
     
-    Person.findByIdAndUpdate(request.params.id, person, {new: true})
+    Person.findByIdAndUpdate(request.params.id, person, {new: true, runValidators: true})
         .then(updatedPerson => {
+            if (updatedPerson === null) {
+                return response.status(404).json({error: `Person '${person.name}' does not exist.`})
+            }
             console.log(`Updated person ${person.name}`)
             response.json(updatedPerson)
         })
