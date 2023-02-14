@@ -44,10 +44,11 @@ const PersonForm = ({
                     }
                   })
                 )
+                setDisplayMsg('')
               })
               .catch(error => {
                 setDisplayType('error')
-                setDisplayMsg(`Information of ${newName} has already been removed from server!`)
+                setDisplayMsg(error.response.data.error)
               })
           }
         } else {
