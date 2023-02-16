@@ -1,14 +1,15 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose")
 
-mongoose.set('strictQuery', false)
+mongoose.set("strictQuery", false)
 
+// eslint-disable-next-line no-undef
 const url = process.env.MONGODB_URI
 
-console.log('CONNECTING TO', url)
+console.log("CONNECTING TO", url)
 
 mongoose.connect(url)
-    .then(result => {
-        console.log('connected to mongoDB')
+    .then(() => {
+        console.log("connected to mongoDB")
     })
     .catch(error => {
         console.log(`error: did not connect to mongodb: ${error.message}`)
@@ -32,7 +33,7 @@ const personSchema = new mongoose.Schema({
     }
 })
 
-personSchema.set('toJSON', {
+personSchema.set("toJSON", {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id.toString()
         delete returnedObject._id
@@ -40,5 +41,5 @@ personSchema.set('toJSON', {
     }
 })
 
-module.exports = mongoose.model('Person', personSchema)
+module.exports = mongoose.model("Person", personSchema)
 
