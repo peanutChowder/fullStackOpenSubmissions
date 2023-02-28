@@ -51,7 +51,7 @@ describe("blog with most likes", () => {
             __v: 0
         }  
     ]
-
+    // TODO: complete parts 4.6 and 4.7 maybe?
     test("blogs with various likes", () => 
         expect(favoriteBlog(blogsVaryingLikes)).toEqual({
             _id: "5a422b3a1b54a676234d17f9",
