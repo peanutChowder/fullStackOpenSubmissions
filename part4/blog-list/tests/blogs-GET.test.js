@@ -50,7 +50,14 @@ test("GET request returns correct # of blogs, in JSON format", async () => {
         .expect("Content-Type", /application\/json/)
 
     expect(response.body.length === initialBlogs.length)
-    console.log(response.body)
+})
+
+test("GET request returns blog posts with 'id' property", async () => {
+    const response = await api.get("/api/blogs")
+
+    await response.body.map((blog) => {
+        expect(blog.id).toBeDefined()
+    })
 })
 
 afterAll(async () => {
