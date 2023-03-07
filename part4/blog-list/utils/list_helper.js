@@ -9,7 +9,6 @@ const totalLikes = (blogs) => {
 
 const favoriteBlog = (blogs) => {
     return blogs.reduce((mostLikedBlog, currBlog) => {
-        console.log(mostLikedBlog)
         if (currBlog.likes > mostLikedBlog.likes) {
             mostLikedBlog = currBlog
         }
