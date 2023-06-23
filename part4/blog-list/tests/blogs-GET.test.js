@@ -35,6 +35,14 @@ test("GET request returns blog posts with 'id' property", async () => {
     })
 })
 
+test("GET request returns blog posts with 'likes' property", async () => {
+    const response = await api.get("/api/blogs")
+
+    await response.body.map((blog) => {
+        expect(blog.likes).toBeDefined()
+    })
+})
+
 afterAll(async () => {
     await mongoose.connection.close()
 })
