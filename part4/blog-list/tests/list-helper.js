@@ -25,6 +25,14 @@ const initialBlogs = [
     }
 ]
 
+const initialBlogsMissingLikes = [
+    {
+        title: "missing likes property",
+        author: "lorem ipsem",
+        url: "something.com"
+    }
+]
+
 module.exports = {
-    initialBlogs
+    initialBlogs, initialBlogsMissingLikes
 }
