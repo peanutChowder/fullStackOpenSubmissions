@@ -3,7 +3,7 @@ const supertest = require("supertest")
 const app = require("../app")
 const api = supertest(app)
 const Blog = require("../models/blog")
-const { initialBlogs, initialBlogsMissingLikes } = require("./list-helper")
+const { initialBlogs, initialBlogsMissingLikes, blogsMissingTitleOrUrl } = require("./list-helper")
 
 beforeEach(async () => {
     await Blog.deleteMany({})
@@ -22,13 +22,24 @@ test("Post request of new blog makes blog count one and contains correct body", 
 
 test("Post request of blog with missing 'likes' property is assigned a value of 0 by default", async () => {
     const blog = initialBlogsMissingLikes[0]
-    console.log(blog)
     await api.post("/api/blogs")
         .send(blog)
         .expect(201)
 
     const response = await api.get("/api/blogs")
     expect(response.body[0].likes).toBe(0)
+})
+
+test("Post request of blog with missing 'title' or 'url' property results in backend response of status code 400", async () => {
+    const blogObjects = blogsMissingTitleOrUrl.map(blog => {
+        return new Blog(blog)
+    })
+
+    await blogObjects.map(blog => {
+        return api.post("/api/blogs")
+            .send(blog)
+            .expect(400)
+    })
 })
 
 afterAll(async () => {

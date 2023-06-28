@@ -33,6 +33,27 @@ const initialBlogsMissingLikes = [
     }
 ]
 
+const blogsMissingTitleOrUrl = [
+    {
+        author: "woozie",
+        url: "asd.wdwr.asdasd",
+        likes: 53,
+    },
+    {
+        author: "mouse man",
+        likes: 1,
+    },
+    {
+        title: "woooo",
+        author: "salmon ver",
+        likes: 74
+    },
+    {
+        author: "woopty doo",
+        likes: 24
+    }
+]
+
 module.exports = {
-    initialBlogs, initialBlogsMissingLikes
+    initialBlogs, initialBlogsMissingLikes, blogsMissingTitleOrUrl
 }
