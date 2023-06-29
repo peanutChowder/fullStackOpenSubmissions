@@ -20,16 +20,14 @@ test("PUT request can update a blog's likes by id", async () => {
     const blog = await Blog.findOne({title: initialBlogs[0].title})
     const blogId = blog._id.toString()
     const newBlog = {
-        ...blog,
+        ...initialBlogs[0],
         likes: 99
     }
 
     const response = await api.put(`/api/blogs/${blogId}`)
         .send(newBlog)
 
-    console.log(response.body)
-
-    // expect(updatedBlog.likes).toBe(99)
+    expect(response.body.likes).toBe(99)
 })
 
 afterAll(async () => {
