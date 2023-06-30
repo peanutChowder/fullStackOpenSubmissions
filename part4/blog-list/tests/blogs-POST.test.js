@@ -3,7 +3,7 @@ const supertest = require("supertest")
 const app = require("../app")
 const api = supertest(app)
 const Blog = require("../models/blog")
-const { initialBlogs, initialBlogsMissingLikes, blogsMissingTitleOrUrl } = require("./list-helper")
+const { initialBlogs, blogsMissingLikes, blogsMissingTitleOrUrl } = require("./list-helper")
 
 beforeEach(async () => {
     await Blog.deleteMany({})
@@ -21,7 +21,7 @@ test("Post request of new blog makes blog count one and contains correct body", 
 })
 
 test("Post request of blog with missing 'likes' property is assigned a value of 0 by default", async () => {
-    const blog = initialBlogsMissingLikes[0]
+    const blog = blogsMissingLikes[0]
     await api.post("/api/blogs")
         .send(blog)
         .expect(201)

@@ -25,7 +25,7 @@ const initialBlogs = [
     }
 ]
 
-const initialBlogsMissingLikes = [
+const blogsMissingLikes = [
     {
         title: "missing likes property",
         author: "lorem ipsem",
@@ -62,6 +62,6 @@ const dbUsers = async () => {
 }
 
 module.exports = {
-    initialBlogs, initialBlogsMissingLikes, blogsMissingTitleOrUrl,
+    initialBlogs, blogsMissingLikes, blogsMissingTitleOrUrl,
     dbUsers
 }
