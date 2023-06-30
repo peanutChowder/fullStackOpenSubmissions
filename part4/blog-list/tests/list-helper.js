@@ -79,6 +79,34 @@ const usersMissingUsernameOrPassword = [
     }
 ]
 
+const usersWithShortUsernamesOrPassword = [
+    {
+        username: "ab",
+        name: "My user is too short",
+        password: "abc"
+    },
+    {
+        username: "12",
+        name: "My username is also too short",
+        password: "456"
+    },
+    {
+        username: "person",
+        name: "My password is too short",
+        password: "k4"
+    },
+    {
+        username: "hi",
+        name: "My password is also too short",
+        password: "]"
+    },
+    {
+        username: "*",
+        name: "both username and password are too short",
+        password: "2"
+    }
+]
+
 const User = require("../models/users")
 
 const dbUsers = async () => {
@@ -88,6 +116,6 @@ const dbUsers = async () => {
 
 module.exports = {
     initialBlogs, blogsMissingLikes, blogsMissingTitleOrUrl,
-    usersMissingUsernameOrPassword,
+    usersMissingUsernameOrPassword, usersWithShortUsernamesOrPassword,
     dbUsers
 }

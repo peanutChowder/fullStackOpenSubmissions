@@ -4,9 +4,9 @@ const app = require("../app")
 const api = supertest(app)
 const User = require("../models/users")
 
-const { usersMissingUsernameOrPassword, dbUsers } = require("./list-helper")
+const { usersMissingUsernameOrPassword, usersWithShortUsernamesOrPassword, dbUsers } = require("./list-helper")
 
-describe("No users in db", () => {
+describe("Starting with no users in db", () => {
     beforeEach(async () => {
         await User.deleteMany({})
     })
@@ -33,12 +33,23 @@ describe("No users in db", () => {
             const response = await api.post("/api/users")
                 .send(user)
                 .expect(400)
-                
+
             expect(response.body.error).toBe("Must provide username and password in request body")
         })
         const usersInDb = await dbUsers()
         expect(usersInDb.length).toBe(0)
 
+    })
+
+    test("Sending a POST request with a username and/or password that is less than 3 characters results in 400 error code", async () => {
+        usersWithShortUsernamesOrPassword.map(async (user) => {
+            const response = await api.post("/api/users")
+                .send(user)
+                .expect(400)
+            expect(response.body.error).toBe("Username and Password must be at least 3 characters long.")
+        })
+        const usersInDb = await dbUsers()
+        expect(usersInDb.length).toBe(0)
     })
 
     afterAll(async () => {
