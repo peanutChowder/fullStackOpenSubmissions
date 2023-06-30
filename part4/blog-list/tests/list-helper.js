@@ -54,6 +54,14 @@ const blogsMissingTitleOrUrl = [
     }
 ]
 
+const User = require("../models/users")
+
+const dbUsers = async () => {
+    const users = await User.find({})
+    return users.map(user => user.toJSON())
+}
+
 module.exports = {
-    initialBlogs, initialBlogsMissingLikes, blogsMissingTitleOrUrl
+    initialBlogs, initialBlogsMissingLikes, blogsMissingTitleOrUrl,
+    dbUsers
 }
