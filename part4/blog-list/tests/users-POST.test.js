@@ -1,17 +1,14 @@
-const bcrypt = require("bcrypt")
 const mongoose = require("mongoose")
 const supertest = require("supertest")
 const app = require("../app")
 const api = supertest(app)
 const User = require("../models/users")
 
+const { dbUsers } = require("./list-helper")
+
 describe("No users in db", () => {
     beforeEach(async () => {
         await User.deleteMany({})
-
-        const pwHash = await bcrypt.hash("weak password", 10)
-        const user = new User({username: "basics", name: "The Guy", password: pwHash})
-        await user.save()
     })
     
     test("Create a new user", async () => {
@@ -24,6 +21,10 @@ describe("No users in db", () => {
             .send(user)
             .expect(201)
             .expect("Content-Type", /application\/json/)
+
+        const users = await dbUsers()
+        expect(users.length).toBe(1)
+        expect(users.map(user => user.username)).toContain(user.username)
 
     })
 
