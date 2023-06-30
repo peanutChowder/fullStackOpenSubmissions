@@ -54,6 +54,31 @@ const blogsMissingTitleOrUrl = [
     }
 ]
 
+const usersMissingUsernameOrPassword = [
+    {
+        username: "thedude",
+        name: "jack"
+    },
+    {
+        username: "thunder",
+        name: "lightning",
+    },
+    {
+        name: "friend",
+        password: "password"
+    },
+    {
+        name: "ball",
+        password: "line"
+    },
+    {
+        name: "hi"
+    },
+    {
+        name: "styrange"
+    }
+]
+
 const User = require("../models/users")
 
 const dbUsers = async () => {
@@ -63,5 +88,6 @@ const dbUsers = async () => {
 
 module.exports = {
     initialBlogs, blogsMissingLikes, blogsMissingTitleOrUrl,
+    usersMissingUsernameOrPassword,
     dbUsers
 }
