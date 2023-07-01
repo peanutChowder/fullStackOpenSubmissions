@@ -15,7 +15,8 @@ blogsRouter.post("/", async (request, response) => {
     }
 
     if (blog.title === undefined || blog.url === undefined) {
-        response.status(400).end()
+        response.status(400).json({error: "Blog title and url must be defined"})
+        return
     }
 
     const result = await blog.save()

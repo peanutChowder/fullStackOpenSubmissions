@@ -31,11 +31,11 @@ test("Post request of blog with missing 'likes' property is assigned a value of 
 })
 
 test("Post request of blog with missing 'title' or 'url' property results in backend response of status code 400", async () => {
-    await Promise.all(blogsMissingTitleOrUrl.map(blog => {
-        api.post("/api/blogs")
+    blogsMissingTitleOrUrl.map(async blog => {
+        await api.post("/api/blogs")
             .send(blog)
             .expect(400)
-    }))
+    })
 })
 
 afterAll(async () => {
