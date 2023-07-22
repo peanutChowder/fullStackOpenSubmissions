@@ -1,5 +1,6 @@
 const blogsRouter = require("express").Router()
 const Blog = require("../models/blog")
+const User = require("../models/users")
 
 blogsRouter.get("/", async (request, response) => {
     const blogs = await Blog.find({})
@@ -8,6 +9,12 @@ blogsRouter.get("/", async (request, response) => {
 })
 
 blogsRouter.post("/", async (request, response) => {
+    const user = await User.findById(request.body.userId)
+
+    if (user === null) {
+        response.status(400).json({error: `User with id '${request.body.userId}' was not found`})
+    }
+
     const blog = new Blog(request.body)
 
     if (blog.likes === undefined) {
