@@ -9,7 +9,10 @@ const requestLogger = (request, response, next) => {
 }
 
 const errorHandler = (error, request, response, next) => {
-    console.log(error.message)
+    logger.error("Middleware:", error.message)
+    if (error.name == "ValidationError" && error.message.includes("expected `username` to be unique")) {
+        response.status(400).json({error: "Did not provide a unique username"})
+    }
 
     next(error)
 }
