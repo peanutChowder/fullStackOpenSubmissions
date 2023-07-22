@@ -8,7 +8,7 @@ userRouter.get("/", async (request, response) => {
     response.json(users)
 })
 
-userRouter.post("/", async (request, response, next) => {
+userRouter.post("/", async (request, response) => {
     const { username, name, password } = request.body
     const saltRounds = 13
 
@@ -32,7 +32,6 @@ userRouter.post("/", async (request, response, next) => {
     })
 
     const savedUser = await user.save()
-        .catch(err => next(err))
 
     response.status(201).json(savedUser)
 
