@@ -13,6 +13,7 @@ blogsRouter.post("/", async (request, response) => {
 
     if (user === null) {
         response.status(400).json({error: `User with id '${request.body.userId}' was not found`})
+        return
     }
 
     const blog = new Blog(request.body)
