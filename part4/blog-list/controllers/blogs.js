@@ -3,16 +3,16 @@ const Blog = require("../models/blog")
 const User = require("../models/users")
 
 blogsRouter.get("/", async (request, response) => {
-    const blogs = await Blog.find({})
+    const blogs = await Blog.find({}).populate("user")
 
     response.json(blogs)
 })
 
 blogsRouter.post("/", async (request, response) => {
-    const user = await User.findById(request.body.userId)
+    const user = await User.findById(request.body.user)
 
     if (user === null) {
-        response.status(400).json({error: `User with id '${request.body.userId}' was not found`})
+        response.status(400).json({error: `User with id '${request.body.user}' was not found`})
         return
     }
 
