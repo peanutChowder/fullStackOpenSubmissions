@@ -33,8 +33,12 @@ blogsRouter.post("/", async (request, response) => {
 })
 
 blogsRouter.delete("/:id", async (request, response) => {
-    Blog.findByIdAndRemove(request.params.id)
-        .then(() => {
+    await Blog.findByIdAndRemove(request.params.id)
+        .then((deletedBlog) => {
+            if (deletedBlog === null) {
+                response.status(400).json({error: "Blog does not exist"})
+            }
+
             response.status(204).end()
         })
 }) 
