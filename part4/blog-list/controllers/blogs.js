@@ -17,6 +17,9 @@ blogsRouter.post("/", async (request, response) => {
     }
 
     const blog = new Blog(request.body)
+    console.log("awo", blog._id)
+    user.blogs.push(blog._id)
+    user.save()
 
     if (blog.likes === undefined) {
         blog.likes = 0
