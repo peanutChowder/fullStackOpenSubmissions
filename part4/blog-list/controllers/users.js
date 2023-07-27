@@ -13,7 +13,6 @@ userRouter.post("/", async (request, response) => {
     const saltRounds = 13
 
     if (username == undefined || password == undefined) {
-        // const responseBody = response.json()
         response.status(400).json({error: "Must provide username and password in request body"})
         return
     }
